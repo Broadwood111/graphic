@@ -13,33 +13,35 @@ const StepDiagram = () => {
   const [activeStep, setActiveStep] = useState(null);
 
   return (
-    <div className="bg-gray-900 p-10 rounded-lg shadow-lg max-w-12xl mx-auto">
+    <div className="bg-gray-900 p-8 rounded-lg shadow-lg w-full mx-auto">
       <div className="flex flex-wrap justify-between items-center relative">
         {steps.map((step, index) => (
           <div 
             key={step.id}
-            className={`relative ${index === 0 || index === steps.length - 1 ? 'w-1/6' : 'w-1/6'} mb-4`}
+            className={`relative ${index === 0 || index === steps.length - 1 ? 'w-1/5' : 'w-1/5 mx-8'} mb-4`}
             onMouseEnter={() => setActiveStep(step.id)}
             onMouseLeave={() => setActiveStep(null)}
           >
             <div 
               className={`
-                ${index === 0 || index === steps.length - 1 ? 'bg-yellow-400 text-black rounded-lg p-3' : 'bg-yellow-400 text-black rounded-full w-16 h-16 flex items-center justify-center'}
+                ${index === 0 || index === steps.length - 1 ? 'bg-yellow-400 text-black rounded-lg p-4 text-xl' : 'bg-yellow-400 text-black rounded-full w-24 h-24 flex items-center justify-center text-xl'}
                 cursor-pointer transition-transform transform hover:scale-110
               `}
             >
               <span className="font-bold">{step.title}</span>
             </div>
             {step.subtitle && (
-              <div className="text-yellow-400 text-sm mt-1 text-center">{step.subtitle}</div>
+              <div className="text-yellow-400 text-lg mt-2 text-center">{step.subtitle}</div>
             )}
             {index < steps.length - 1 && (
-              <div className="absolute top-1/2 left-full w-full h-0.5 bg-yellow-400 transform -translate-y-1/2"></div>
+              <div className="absolute top-1/2 left-full transform -translate-y-1/2">
+                <div className="w-16 h-1 bg-yellow-400"></div>
+              </div>
             )}
             {activeStep === step.id && (
-              <div className="absolute z-10 bg-white text-black p-4 rounded-lg shadow-lg mt-2 w-64">
-                <h3 className="font-bold mb-2">{step.title}</h3>
-                <p className="text-sm whitespace-pre-line">{step.content}</p>
+              <div className="absolute z-10 bg-white text-black p-6 rounded-lg shadow-lg mt-4 w-80">
+                <h3 className="font-bold text-lg mb-2">{step.title}</h3>
+                <p className="text-base whitespace-pre-line">{step.content}</p>
               </div>
             )}
           </div>
