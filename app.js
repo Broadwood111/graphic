@@ -14,11 +14,11 @@ const StepDiagram = () => {
 
   return (
     <div className="bg-gray-900 p-8 rounded-lg shadow-lg w-full mx-auto">
-      <div className="flex flex-wrap justify-between items-center relative">
+      <div className="flex justify-between items-center relative w-full">
         {steps.map((step, index) => (
           <div 
             key={step.id}
-            className={`relative ${index === 0 || index === steps.length - 1 ? 'w-1/5' : 'w-1/5 mx-8'} mb-4`}
+            className={`relative ${index === 0 || index === steps.length - 1 ? 'w-1/5' : 'w-1/5'} mb-4`}
             onMouseEnter={() => setActiveStep(step.id)}
             onMouseLeave={() => setActiveStep(null)}
           >
@@ -35,7 +35,7 @@ const StepDiagram = () => {
             )}
             {index < steps.length - 1 && (
               <div className="absolute top-1/2 left-full transform -translate-y-1/2">
-                <div className="w-16 h-1 bg-yellow-400"></div>
+                <div className="w-32 h-1 bg-yellow-400"></div>
               </div>
             )}
             {activeStep === step.id && (
