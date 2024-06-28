@@ -13,7 +13,7 @@ const StepDiagram = () => {
   const [activeStep, setActiveStep] = useState(null);
 
   return (
-    <div className="bg-gray-1200 p-8 rounded-lg shadow-lg max-w-4xl mx-auto">
+    <div className="bg-gray-900 p-8 rounded-lg shadow-lg max-w-4xl mx-auto">
       <div className="flex flex-wrap justify-between items-center relative">
         {steps.map((step, index) => (
           <div 
