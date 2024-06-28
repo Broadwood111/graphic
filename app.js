@@ -17,26 +17,29 @@ const InteractiveCloudDiagram = () => {
     igel: { name: 'IGEL Management', info: 'Centralized management for IGEL OS devices.' },
   };
 
+  const cloudServiceColors = ['bg-blue-200', 'bg-green-200', 'bg-red-200', 'bg-yellow-200'];
+  const middleTierColors = ['bg-blue-500', 'bg-green-500', 'bg-purple-500'];
+
   return (
-    <div className="diagram-container">
-      <svg viewBox="0 0 800 600" className="diagram">
+    <div className="relative w-full max-w-4xl">
+      <svg viewBox="0 0 800 600" className="w-full h-auto">
         {/* Cloud services */}
         <g transform="translate(0, 20)">
           {['citrix', 'vmware', 'microsoft', 'saas'].map((service, index) => (
             <g key={service} transform={`translate(${index * 200}, 0)`}>
               <rect 
                 x="10" y="10" width="180" height="80" rx="40" 
-                className="cloud-service"
+                className={`${cloudServiceColors[index]} stroke-gray-700 stroke-2`}
                 onMouseEnter={() => setActiveSection(service)}
                 onMouseLeave={() => setActiveSection(null)}
               />
-              <text x="100" y="60" textAnchor="middle">{sections[service].name}</text>
+              <text x="100" y="60" textAnchor="middle" className="fill-gray-700 text-sm font-semibold">{sections[service].name}</text>
             </g>
           ))}
         </g>
 
         {/* Connecting lines */}
-        <line x1="400" y1="110" x2="400" y2="180" className="connector" />
+        <line x1="400" y1="110" x2="400" y2="180" className="stroke-gray-700 stroke-2" />
 
         {/* Middle tier */}
         <g transform="translate(0, 200)">
@@ -44,17 +47,17 @@ const InteractiveCloudDiagram = () => {
             <g key={item} transform={`translate(${250 + index * 150}, 0)`}>
               <rect 
                 x="10" y="10" width="120" height="80" 
-                className={`middle-tier tier-${index + 1}`}
+                className={`${middleTierColors[index]} stroke-gray-700 stroke-2`}
                 onMouseEnter={() => setActiveSection(item)}
                 onMouseLeave={() => setActiveSection(null)}
               />
-              <text x="70" y="60" textAnchor="middle">{sections[item].name}</text>
+              <text x="70" y="60" textAnchor="middle" className="fill-white text-sm font-semibold">{sections[item].name}</text>
             </g>
           ))}
         </g>
 
         {/* Connecting lines */}
-        <line x1="400" y1="290" x2="400" y2="360" className="connector" />
+        <line x1="400" y1="290" x2="400" y2="360" className="stroke-gray-700 stroke-2" />
 
         {/* Bottom tier */}
         <g transform="translate(0, 380)">
@@ -62,11 +65,11 @@ const InteractiveCloudDiagram = () => {
             <g key={location} transform={`translate(${250 + index * 150}, 0)`}>
               <rect 
                 x="10" y="10" width="120" height="80" 
-                className="bottom-tier"
+                className="fill-white stroke-gray-700 stroke-2"
                 onMouseEnter={() => setActiveSection(location)}
                 onMouseLeave={() => setActiveSection(null)}
               />
-              <text x="70" y="60" textAnchor="middle">{sections[location].name}</text>
+              <text x="70" y="60" textAnchor="middle" className="fill-gray-700 text-sm font-semibold">{sections[location].name}</text>
             </g>
           ))}
         </g>
@@ -75,21 +78,21 @@ const InteractiveCloudDiagram = () => {
         <g transform="translate(600, 300)">
           <rect 
             x="10" y="10" width="180" height="80" rx="40" 
-            className="igel-management"
+            className="fill-yellow-300 stroke-gray-700 stroke-2"
             onMouseEnter={() => setActiveSection('igel')}
             onMouseLeave={() => setActiveSection(null)}
           />
-          <text x="100" y="60" textAnchor="middle">{sections.igel.name}</text>
+          <text x="100" y="60" textAnchor="middle" className="fill-gray-700 text-sm font-semibold">{sections.igel.name}</text>
         </g>
 
         {/* Connecting dashed lines */}
-        <line x1="590" y1="340" x2="400" y2="420" className="connector dashed" />
+        <line x1="590" y1="340" x2="400" y2="420" className="stroke-gray-700 stroke-2 stroke-dasharray-2" />
       </svg>
 
       {activeSection && (
-        <div className="tooltip">
-          <h3>{sections[activeSection].name}</h3>
-          <p>{sections[activeSection].info}</p>
+        <div className="absolute top-4 right-4 bg-white border border-gray-300 rounded-lg p-4 max-w-xs shadow-lg">
+          <h3 className="text-lg font-bold mb-2">{sections[activeSection].name}</h3>
+          <p className="text-sm text-gray-600">{sections[activeSection].info}</p>
         </div>
       )}
     </div>
