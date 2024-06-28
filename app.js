@@ -24,7 +24,7 @@ const StepDiagram = () => {
           >
             <div 
               className={`
-                ${index === 0 || index === steps.length - 1 ? 'bg-yellow-400 text-black rounded-lg p-2' : 'bg-yellow-400 text-black rounded-full w-16 h-16 flex items-center justify-center'}
+                ${index === 0 || index === steps.length - 1 ? 'bg-yellow-400 text-black rounded-lg p-2' : 'bg-yellow-400 text-black rounded-full w-10 h-10 flex items-center justify-center'}
                 cursor-pointer transition-transform transform hover:scale-110
               `}
             >
