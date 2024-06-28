@@ -1,102 +1,56 @@
 const { useState } = React;
 
-const InteractiveCloudDiagram = () => {
-  const [activeSection, setActiveSection] = useState(null);
+import React, { useState } from 'react';
 
-  const sections = {
-    citrix: { name: 'Citrix', info: 'Citrix provides virtual app and desktop delivery solutions.' },
-    vmware: { name: 'VMware', info: 'VMware offers virtualization and cloud computing software and services.' },
-    microsoft: { name: 'Microsoft', info: 'Microsoft provides cloud services through Azure and other platforms.' },
-    saas: { name: 'SaaS', info: 'Software as a Service - cloud-based software delivery model.' },
-    desktop: { name: 'Desktop', info: 'Virtual desktop infrastructure for remote access.' },
-    apps: { name: 'Apps', info: 'Application virtualization and delivery.' },
-    software: { name: 'Software', info: 'Various software solutions delivered through the cloud.' },
-    home: { name: 'Home', info: 'Access from home environments.' },
-    office: { name: 'Office', info: 'Access from office environments.' },
-    anywhere: { name: 'Anywhere', info: 'Access from any location with internet connectivity.' },
-    igel: { name: 'IGEL Management', info: 'Centralized management for IGEL OS devices.' },
-  };
+const steps = [
+  { id: 'start', title: 'Start', subtitle: 'zero', content: 'Begin your journey here' },
+  { id: '1', title: 'Step 1', content: 'Gather the data: Have your customer run an INTUNE report to find out exactly what the situation is' },
+  { id: '2', title: 'Step 2', content: 'Understand HOW they use those devices:\n• What Applications?\n• What Services?\n• What Dependencies?\n• What Resources?\n• Data Location?\n• User mobility?' },
+  { id: '3', title: 'Step 3', content: 'Understand The COSTS. The Total Cost of ownership is more than just the device.\n\nRun the Value Assessment from IGEL\'s partner ecoSystems' },
+  { id: '4', title: 'Step 4', content: 'Grow the size of your deals!\nUse the data to position a hybrid solution that uses the right tools for the right job.\n1. New Hardware\n2. New Software and Services\n3. New Datacenter solutions\nWhere possible' },
+  { id: 'end', title: 'End', subtitle: 'Hero', content: 'Congratulations! You\'ve completed all steps.' }
+];
 
-  const cloudServiceColors = ['bg-blue-200', 'bg-green-200', 'bg-red-200', 'bg-yellow-200'];
-  const middleTierColors = ['bg-blue-500', 'bg-green-500', 'bg-purple-500'];
+const StepDiagram = () => {
+  const [activeStep, setActiveStep] = useState(null);
 
   return (
-    <div className="relative w-full max-w-4xl">
-      <svg viewBox="0 0 800 600" className="w-full h-auto">
-        {/* Cloud services */}
-        <g transform="translate(0, 20)">
-          {['citrix', 'vmware', 'microsoft', 'saas'].map((service, index) => (
-            <g key={service} transform={`translate(${index * 200}, 0)`}>
-              <rect 
-                x="10" y="10" width="180" height="80" rx="40" 
-                className={`${cloudServiceColors[index]} stroke-gray-700 stroke-2`}
-                onMouseEnter={() => setActiveSection(service)}
-                onMouseLeave={() => setActiveSection(null)}
-              />
-              <text x="100" y="60" textAnchor="middle" className="fill-gray-700 text-sm font-semibold">{sections[service].name}</text>
-            </g>
-          ))}
-        </g>
-
-        {/* Connecting lines */}
-        <line x1="400" y1="110" x2="400" y2="180" className="stroke-gray-700 stroke-2" />
-
-        {/* Middle tier */}
-        <g transform="translate(0, 200)">
-          {['desktop', 'apps', 'software'].map((item, index) => (
-            <g key={item} transform={`translate(${250 + index * 150}, 0)`}>
-              <rect 
-                x="10" y="10" width="120" height="80" 
-                className={`${middleTierColors[index]} stroke-gray-700 stroke-2`}
-                onMouseEnter={() => setActiveSection(item)}
-                onMouseLeave={() => setActiveSection(null)}
-              />
-              <text x="70" y="60" textAnchor="middle" className="fill-white text-sm font-semibold">{sections[item].name}</text>
-            </g>
-          ))}
-        </g>
-
-        {/* Connecting lines */}
-        <line x1="400" y1="290" x2="400" y2="360" className="stroke-gray-700 stroke-2" />
-
-        {/* Bottom tier */}
-        <g transform="translate(0, 380)">
-          {['home', 'office', 'anywhere'].map((location, index) => (
-            <g key={location} transform={`translate(${250 + index * 150}, 0)`}>
-              <rect 
-                x="10" y="10" width="120" height="80" 
-                className="fill-white stroke-gray-700 stroke-2"
-                onMouseEnter={() => setActiveSection(location)}
-                onMouseLeave={() => setActiveSection(null)}
-              />
-              <text x="70" y="60" textAnchor="middle" className="fill-gray-700 text-sm font-semibold">{sections[location].name}</text>
-            </g>
-          ))}
-        </g>
-
-        {/* IGEL Management */}
-        <g transform="translate(600, 300)">
-          <rect 
-            x="10" y="10" width="180" height="80" rx="40" 
-            className="fill-yellow-300 stroke-gray-700 stroke-2"
-            onMouseEnter={() => setActiveSection('igel')}
-            onMouseLeave={() => setActiveSection(null)}
-          />
-          <text x="100" y="60" textAnchor="middle" className="fill-gray-700 text-sm font-semibold">{sections.igel.name}</text>
-        </g>
-
-        {/* Connecting dashed lines */}
-        <line x1="590" y1="340" x2="400" y2="420" className="stroke-gray-700 stroke-2 stroke-dasharray-2" />
-      </svg>
-
-      {activeSection && (
-        <div className="absolute top-4 right-4 bg-white border border-gray-300 rounded-lg p-4 max-w-xs shadow-lg">
-          <h3 className="text-lg font-bold mb-2">{sections[activeSection].name}</h3>
-          <p className="text-sm text-gray-600">{sections[activeSection].info}</p>
-        </div>
-      )}
+    <div className="bg-gray-900 p-8 rounded-lg shadow-lg max-w-4xl mx-auto">
+      <div className="flex flex-wrap justify-between items-center relative">
+        {steps.map((step, index) => (
+          <div 
+            key={step.id}
+            className={`relative ${index === 0 || index === steps.length - 1 ? 'w-1/6' : 'w-1/6'} mb-4`}
+            onMouseEnter={() => setActiveStep(step.id)}
+            onMouseLeave={() => setActiveStep(null)}
+          >
+            <div 
+              className={`
+                ${index === 0 || index === steps.length - 1 ? 'bg-yellow-400 text-black rounded-lg p-2' : 'bg-yellow-400 text-black rounded-full w-16 h-16 flex items-center justify-center'}
+                cursor-pointer transition-transform transform hover:scale-110
+              `}
+            >
+              <span className="font-bold">{step.title}</span>
+            </div>
+            {step.subtitle && (
+              <div className="text-yellow-400 text-sm mt-1 text-center">{step.subtitle}</div>
+            )}
+            {index < steps.length - 1 && (
+              <div className="absolute top-1/2 left-full w-full h-0.5 bg-yellow-400 transform -translate-y-1/2"></div>
+            )}
+            {activeStep === step.id && (
+              <div className="absolute z-10 bg-white text-black p-4 rounded-lg shadow-lg mt-2 w-64">
+                <h3 className="font-bold mb-2">{step.title}</h3>
+                <p className="text-sm whitespace-pre-line">{step.content}</p>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
-ReactDOM.render(<InteractiveCloudDiagram />, document.getElementById('root'));
+export default StepDiagram;
+
+ReactDOM.render(<StepDiagram />, document.getElementById('root'));
