@@ -1,7 +1,5 @@
 const { useState } = React;
 
-import React, { useState } from 'react';
-
 const steps = [
   { id: 'start', title: 'Start', subtitle: 'zero', content: 'Begin your journey here' },
   { id: '1', title: 'Step 1', content: 'Gather the data: Have your customer run an INTUNE report to find out exactly what the situation is' },
@@ -51,6 +49,5 @@ const StepDiagram = () => {
   );
 };
 
-export default StepDiagram;
 
 ReactDOM.render(<StepDiagram />, document.getElementById('root'));
