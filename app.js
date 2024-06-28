@@ -1,4 +1,4 @@
-const { useState } = React;
+import React, { useState } from 'react';
 
 const steps = [
   { id: 'start', title: 'Start', subtitle: 'zero', content: 'Begin your journey here' },
@@ -37,7 +37,7 @@ const StepDiagram = () => {
                 <div className="text-yellow-400 text-sm mt-2 text-center">{step.subtitle}</div>
               )}
               {index < steps.length - 1 && (
-                <div className="absolute top-1/2 left-full w-full h-2 bg-yellow-400 transform -translate-y-1/2 -z-10"></div>
+                <div className="absolute top-1/2 left-1/2 w-full h-2 bg-yellow-400 transform -translate-y-1/2 -z-10"></div>
               )}
               {activeStep === step.id && (
                 <div className="absolute top-full mt-4 bg-white text-black p-4 rounded-lg shadow-lg w-64 z-20">
@@ -53,4 +53,4 @@ const StepDiagram = () => {
   );
 };
 
-ReactDOM.render(<StepDiagram />, document.getElementById('root'));
+export default StepDiagram;
