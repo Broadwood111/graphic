@@ -13,8 +13,8 @@ const StepDiagram = () => {
   const [activeStep, setActiveStep] = useState(null);
 
   return (
-    <div className="bg-gray-900 p-8 rounded-lg shadow-lg max-w-custom mx-auto">
-      <div className="flex flex-wrap justify-between items-center relative">
+    <div className="bg-gray-900 p-8 rounded-lg shadow-lg max-w-custom-wide mx-auto">
+      <div className="flex justify-between items-center relative">
         {steps.map((step, index) => (
           <div 
             key={step.id}
@@ -24,7 +24,7 @@ const StepDiagram = () => {
           >
             <div 
               className={`
-                ${index === 0 || index === steps.length - 1 ? 'bg-yellow-400 text-black rounded-lg p-2' : 'bg-yellow-400 text-black rounded-full w-16 h-16 flex items-center justify-center'}
+                ${index === 0 || index === steps.length - 1 ? 'bg-yellow-400 text-black rounded-lg p-2' : 'bg-yellow-400 text-black rounded-full w-24 h-24 flex items-center justify-center'}
                 cursor-pointer transition-transform transform hover:scale-110
               `}
             >
