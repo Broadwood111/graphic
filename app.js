@@ -13,35 +13,36 @@ const StepDiagram = () => {
   const [activeStep, setActiveStep] = useState(null);
 
   return (
-    <div className="bg-gray-900 min-h-screen flex justify-center items-center">
-      <div className="bg-gray-900 p-8 rounded-lg shadow-lg w-full mx-auto max-w-screen-xl">
-        <div className="flex justify-between items-center relative w-full">
+    <div className="bg-gray-900 min-h-screen w-full flex items-center justify-center p-4">
+      <div className="w-full max-w-6xl">
+        <div className="flex justify-between items-center relative">
           {steps.map((step, index) => (
             <div 
               key={step.id}
-              className={`relative ${index === 0 || index === steps.length - 1 ? 'w-1/5' : 'w-1/5'} mb-4 flex flex-col items-center`}
+              className="relative flex flex-col items-center"
               onMouseEnter={() => setActiveStep(step.id)}
               onMouseLeave={() => setActiveStep(null)}
             >
               <div 
                 className={`
-                  ${index === 0 || index === steps.length - 1 ? 'bg-yellow-400 text-black rounded-lg p-4 text-xl flex justify-center items-center' : 'bg-yellow-400 text-black rounded-full w-24 h-24 flex items-center justify-center text-xl'}
-                  cursor-pointer transition-transform transform hover:scale-110
+                  ${index === 0 || index === steps.length - 1 
+                    ? 'bg-yellow-400 text-black rounded-lg p-4 w-24 h-24 flex items-center justify-center' 
+                    : 'bg-yellow-400 text-black rounded-full w-20 h-20 flex items-center justify-center'}
+                  cursor-pointer transition-transform transform hover:scale-110 z-10
                 `}
               >
-                <span className="font-bold">{step.title}</span>
+                <span className="font-bold text-xl">{step.title}</span>
               </div>
               {step.subtitle && (
-                <div className="text-yellow-400 text-lg mt-2 text-center">{step.subtitle}</div>
+                <div className="text-yellow-400 text-sm mt-2 text-center">{step.subtitle}</div>
               )}
               {index < steps.length - 1 && (
-                <div className="absolute top-1/2 left-full transform -translate-y-1/2 w-16 h-1 bg-yellow-400">
-                </div>
+                <div className="absolute top-1/2 left-full w-full h-2 bg-yellow-400 transform -translate-y-1/2 -z-10"></div>
               )}
               {activeStep === step.id && (
-                <div className="absolute z-10 bg-white text-black p-6 rounded-lg shadow-lg mt-4 w-80">
-                  <h3 className="font-bold text-lg mb-2">{step.title}</h3>
-                  <p className="text-base whitespace-pre-line">{step.content}</p>
+                <div className="absolute top-full mt-4 bg-white text-black p-4 rounded-lg shadow-lg w-64 z-20">
+                  <h3 className="font-bold mb-2">{step.title}</h3>
+                  <p className="text-sm whitespace-pre-line">{step.content}</p>
                 </div>
               )}
             </div>
@@ -53,4 +54,3 @@ const StepDiagram = () => {
 };
 
 ReactDOM.render(<StepDiagram />, document.getElementById('root'));
-
