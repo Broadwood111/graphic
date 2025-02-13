@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Q4 Sales & Revenue Performance</title>
+  
+  <!-- Plotly.js CDN -->
+  <script src="https://cdn.plot.ly/plotly-2.20.0.min.js"></script>
+  
+  <style>
+    /* Reset & Basic Styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background: #f7f7f7;
+      color: #333;
+    }
+    
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+
+    /* Presentation Header */
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .header h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    .header p {
+      font-size: 1rem;
+      color: #666;
+    }
+
+    /* Tab Navigation for Slides */
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      border-bottom: 2px solid #eee;
+      margin-bottom: 20px;
+    }
+    .tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      background: #f2f2f2;
+      border: none;
+      margin-right: 5px;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      font-weight: 600;
+      transition: background 0.2s ease-in-out;
+    }
+    .tab:hover {
+      background: #e0e0e0;
+    }
+    .tab.active {
+      background: #ffffff;
+      border-bottom: 2px solid #ffffff;
+      color: #333;
+    }
+
+    /* Slides */
+    .slide {
+      display: none; 
+    }
+    .slide.active {
+      display: block;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* Headings & Layout on Slides */
+    .slide h2 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: #444;
+    }
+    .slide h3 {
+      font-size: 1.2rem;
+      margin: 20px 0 10px 0;
+      color: #555;
+    }
+    .slide p {
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+    .slide ul {
+      margin-left: 20px;
+      margin-bottom: 20px;
+      list-style-type: disc;
+    }
+    .slide li {
+      margin: 6px 0;
+    }
+
+    /* Chart Containers */
+    .chart-container {
+      margin: 20px 0;
+      width: 100%;
+      min-height: 400px;  /* Enough height for readability */
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .tabs {
+        flex-direction: column;
+      }
+      .tab {
+        margin-bottom: 5px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Presentation Header -->
+  <div class="header">
+    <h1>Q4 Sales & Revenue Performance</h1>
+    <p>An Executive-Level Interactive Presentation</p>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="tabs">
+    <button class="tab active" onclick="showSlide(0)">1. Quarterly Trends</button>
+    <button class="tab" onclick="showSlide(1)">2. Sales Dynamics</button>
+    <button class="tab" onclick="showSlide(2)">3. Sales Efficiency</button>
+    <button class="tab" onclick="showSlide(3)">4. Strategic Impact</button>
+    <button class="tab" onclick="showSlide(4)">5. Executive Insights</button>
+  </div>
+
+  <!-- Slides -->
+  <!-- SLIDE 1: Quarterly Performance & Revenue Trends -->
+  <div class="slide active">
+    <h2>Quarterly Performance & Revenue Trends</h2>
+    <p>This quarter saw a <strong>12% growth</strong> in revenue driven by net new business and strategic migrations from legacy products. Year-over-year performance also improved by <strong>15%</strong> compared to the same quarter last year.</p>
+    <ul>
+      <li>Net New Business remained the strongest driver of growth.</li>
+      <li>Renewals contributed roughly 40% to total revenue.</li>
+      <li>Migrations made up 10% of revenue but have room for expansion.</li>
+    </ul>
+
+    <!-- Example Chart: Quarterly Revenue Breakdown -->
+    <h3>Quarterly Revenue Breakdown</h3>
+    <div id="quarterlyRevenueChart" class="chart-container"></div>
+  </div>
+
+  <!-- SLIDE 2: Sales & Revenue Dynamics -->
+  <div class="slide">
+    <h2>Sales & Revenue Dynamics</h2>
+    <p>Revenue distribution varied by region, with <strong>North America</strong> leading the pack at 55% of total revenue, followed by EMEA (30%) and a rapidly growing APAC region (15%).</p>
+    <ul>
+      <li>Healthcare had a 20% QoQ increase in closed-won deals.</li>
+      <li>Government deals grew by 15%, largely in compliance-focused programs.</li>
+      <li>Large Enterprises contributed nearly 60% of total quarterly revenue.</li>
+    </ul>
+
+    <!-- Example Chart: Revenue by Region & Vertical -->
+    <h3>Revenue by Region & Vertical</h3>
+    <div id="regionVerticalChart" class="chart-container"></div>
+  </div>
+
+  <!-- SLIDE 3: Sales Cycle Efficiency & Patterns -->
+  <div class="slide">
+    <h2>Sales Cycle Efficiency & Patterns</h2>
+    <p>By excluding deals closed under 20 days, the average sales cycle stands at <strong>2.5 months</strong>. Large Enterprise and Government deals require significantly longer timelines, but yield higher returns.</p>
+    <ul>
+      <li>North America’s average sales cycle: 2.2 months.</li>
+      <li>EMEA: 3 months due to regulatory considerations.</li>
+      <li>APAC: 2.8 months, showing improvement with new market penetration.</li>
+    </ul>
+
+    <!-- Example Chart: Average Length of Sale by Region & Deal Size -->
+    <h3>Average Sales Cycle</h3>
+    <div id="salesCycleChart" class="chart-container"></div>
+  </div>
+
+  <!-- SLIDE 4: Strategic Business Impact -->
+  <div class="slide">
+    <h2>Strategic Business Impact</h2>
+    <p>The 5x3 Go-to-Market strategy and new price book influenced major gains in Healthcare and Government. APAC’s territory expansion also accelerated revenue with a 25% QoQ improvement.</p>
+    <ul>
+      <li>Healthcare & Government bundles increased average deal size by 15%.</li>
+      <li>Net new deals up by 18%; expansion deals up by 30% in large accounts.</li>
+      <li>ERM, CAM, FSM structures are showing measurable efficiency gains.</li>
+    </ul>
+
+    <!-- Example Chart: Net New vs. Expansion Deals -->
+    <h3>Net New vs. Expansion Deals</h3>
+    <div id="newExpansionChart" class="chart-container"></div>
+  </div>
+
+  <!-- SLIDE 5: Additional Executive-Level Insights -->
+  <div class="slide">
+    <h2>Additional Executive-Level Insights</h2>
+    <p>Unexpected slowdowns emerged in the Retail vertical, indicating potential market headwinds. However, overall momentum remains strong, backed by expansion opportunities in Healthcare, Government, and APAC.</p>
+    <ul>
+      <li>Opportunity: Increase focus on compliance-heavy verticals.</li>
+      <li>Risk: Retail slump could persist into Q1 without targeted action.</li>
+      <li>Recommendation: Accelerate EMEA sales support and continue APAC enablement.</li>
+    </ul>
+
+    <p><strong>Next Steps:</strong> Investigate retail performance drivers, refine territory strategies, and invest further in healthcare cross-selling.</p>
+  </div>
+</div>
+
+<!-- JavaScript for Tabs & Charts -->
+<script>
+(function() {
+  // Simple tab-switching logic
+  let tabs = document.querySelectorAll('.tab');
+  let slides = document.querySelectorAll('.slide');
+
+  window.showSlide = function(index) {
+    // Reset active classes
+    tabs.forEach(tab => tab.classList.remove('active'));
+    slides.forEach(slide => slide.classList.remove('active'));
+
+    // Activate selected slide
+    tabs[index].classList.add('active');
+    slides[index].classList.add('active');
+  };
+
+  //================= CHART 1: Quarterly Revenue Breakdown =================
+  let quarterlyRevenueData = [
+    {
+      x: ['Net New', 'Renewals', 'Migrations'],
+      y: [40, 30, 10],  // Example data
+      type: 'bar',
+      marker: { color: ['#0074D9', '#2ECC40', '#FF851B'] }
+    }
+  ];
+  let quarterlyRevenueLayout = {
+    title: 'Q4 Revenue Sources',
+    xaxis: { title: 'Revenue Source' },
+    yaxis: { title: 'Revenue (in millions)', range: [0, 50] },
+    margin: { t: 60, b: 50 }
+  };
+  Plotly.newPlot('quarterlyRevenueChart', quarterlyRevenueData, quarterlyRevenueLayout, {displayModeBar: false});
+
+  //================= CHART 2: Revenue by Region & Vertical =================
+  let regionVerticalData = [
+    {
+      x: ['NA', 'EMEA', 'APAC'],
+      y: [55, 30, 15],
+      name: 'Total Revenue by Region',
+      type: 'bar',
+      marker: { color: '#0074D9' }
+    },
+    {
+      x: ['NA', 'EMEA', 'APAC'],
+      y: [20, 15, 5],
+      name: 'Healthcare Contribution',
+      type: 'bar',
+      marker: { color: '#2ECC40' }
+    },
+    {
+      x: ['NA', 'EMEA', 'APAC'],
+      y: [15, 10, 2],
+      name: 'Government Contribution',
+      type: 'bar',
+      marker: { color: '#FF851B' }
+    }
+  ];
+  let regionVerticalLayout = {
+    title: 'Revenue Distribution by Region & Key Verticals',
+    barmode: 'group',
+    xaxis: { title: 'Region' },
+    yaxis: { title: 'Revenue (%)' },
+    margin: { t: 60, b: 50 }
+  };
+  Plotly.newPlot('regionVerticalChart', regionVerticalData, regionVerticalLayout, {displayModeBar: false});
+
+  //================= CHART 3: Average Sales Cycle =================
+  let salesCycleData = [
+    {
+      x: ['NA', 'EMEA', 'APAC'],
+      y: [2.2, 3.0, 2.8],  // months
+      type: 'scatter',
+      mode: 'lines+markers',
+      line: { shape: 'spline', color: '#0074D9' },
+      marker: { size: 8 }
+    }
+  ];
+  let salesCycleLayout = {
+    title: 'Average Length of Sale (Months)',
+    xaxis: { title: 'Region' },
+    yaxis: { title: 'Months', range: [0, 4] },
+    margin: { t: 60, b: 50 }
+  };
+  Plotly.newPlot('salesCycleChart', salesCycleData, salesCycleLayout, {displayModeBar: false});
+
+  //================= CHART 4: Net New vs. Expansion Deals =================
+  let newExpansionData = [{
+    labels: ['Net New Deals', 'Expansion Deals'],
+    values: [60, 40],
+    type: 'pie',
+    marker: {
+      colors: ['#0074D9', '#2ECC40']
+    },
+    textinfo: 'label+percent',
+    hole: .4
+  }];
+  let newExpansionLayout = {
+    title: 'Net New vs. Expansion Deals',
+    showlegend: true,
+    margin: { t: 60, b: 50 }
+  };
+  Plotly.newPlot('newExpansionChart', newExpansionData, newExpansionLayout, {displayModeBar: false});
+})();
+</script>
+
+<!-- Basic Test Cases -->
+<script>
+(function runTests(){
+  // Test 1: showSlide function existence
+  if (typeof showSlide !== 'function') {
+    console.error('Test Fail: showSlide function not found');
+  } else {
+    console.log('Test Pass: showSlide function exists');
+  }
+
+  // Test 2: Chart containers exist
+  const containerIds = [
+    'quarterlyRevenueChart',
+    'regionVerticalChart',
+    'salesCycleChart',
+    'newExpansionChart'
+  ];
+
+  containerIds.forEach(id => {
+    if (!document.getElementById(id)) {
+      console.error(`Test Fail: Container #${id} not found in DOM`);
+    } else {
+      console.log(`Test Pass: Container #${id} is present in DOM`);
+    }
+  });
+
+  // Add any further test cases as needed
+})();
+</script>
+
+</body>
+</html>
